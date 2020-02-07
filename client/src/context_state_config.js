@@ -17,22 +17,26 @@ const auth = new Auth();
 const ContextState = () => {
   // PLAIN REDUCER
   // #######################
-  const [stateReducer1, dispatchReducer1] = useReducer(
-    Reducer1.Reducer1,
-    Reducer1.initialState
-  );
+  const { Reducer1, initialState } = Reducer1;
+  // useReducer() result is destructured and saved in variables stateReducer1 & dispatchReducer1
+  // stateReducer1 accesses state properties definied in `initialState` of `Reducer1`
+  const [stateReducer1, dispatchReducer1] = useReducer(Reducer1, initialState);
+  // actions passed through dispatch tell reducer how to update state
   const handleDispatchTrue = () => {
+    // dispatches success to change stateprop1 & 2 from false to true
     dispatchReducer1(ACTIONS.success());
   };
   const handleDispatchFalse = () => {
+    // dispatches failure to change stateprop1 & 2 from true to false
     dispatchReducer1(ACTIONS.failure());
   };
 
   // AUTH REDUCER
   // #######################
+  const { AuthReducer, initialState } = AuthReducer;
   const [stateAuthReducer, dispatchAuthReducer] = useReducer(
-    AuthReducer.AuthReducer,
-    AuthReducer.initialState
+    AuthReducer,
+    initialState
   );
   const handleLogin = () => {
     dispatchAuthReducer(ACTIONS.login_success());
@@ -48,15 +52,17 @@ const ContextState = () => {
   };
 
   // FORM REDUCER
+  const { FormReducer, initialState } = FormReducer;
   const [stateFormReducer, dispatchFormReducer] = useReducer(
-    FormReducer.FormReducer,
-    FormReducer.initialState
+    FormReducer,
+    initialState
   );
   const handleFormChange = event => {
     dispatchFormReducer(ACTIONS.user_input_change(event.target.value));
   };
   const handleFormSubmit = event => {
     event.preventDefault();
+    // .persist() necessary bc data is coming from a child component
     event.persist();
     dispatchFormReducer(
       ACTIONS.user_input_submit(event.target.useContext.value)
@@ -72,6 +78,7 @@ const ContextState = () => {
 
   return (
     <div>
+      {/* gets all the function and state values defined in the value prop */}
       <Context.Provider
         value={{
           //Reducer1
