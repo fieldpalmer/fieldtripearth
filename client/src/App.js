@@ -1,3 +1,4 @@
+// root component imports and displays context_state_config.js components
 import React from "react";
 import NavBar from "./components/NavBar";
 
