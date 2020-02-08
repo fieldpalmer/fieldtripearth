@@ -71,6 +71,8 @@ const ContextState = () => {
 
   // HANDLE AUTHENTICATION FROM CALLBACK
   const handleAuthentication = props => {
+    // props.location.hash checks for value in URL hash fragment
+    // if user is logged in their access and id tokens will be there
     if (props.location.hash) {
       auth.handleAuth();
     }
