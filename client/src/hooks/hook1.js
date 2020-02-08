@@ -1,21 +1,22 @@
-// will contain 3 ways to update state using Hooks
-// useState, useReducer, useContext
 import React, { useContext, useState, useEffect, useReducer } from "react";
 import * as ACTIONS from "../store/actions/actions";
-import * as Reducer1 from "../utils/context";
+import * as Reducer1 from "../store/reducers/plain_reducer";
 import Context from "../utils/context";
 
-const HookContainer1 = () => {
+const HooksContainer1 = () => {
   const context = useContext(Context);
+
   const [value, setValue] = useState(0);
+
   const [useEffectValue, setUseEffectValue] = useState(null);
+
   const [state, dispatch] = useReducer(
     Reducer1.Reducer1,
     Reducer1.initialState
   );
 
   useEffect(() => {
-    setTimeout(() => setUseEffectValue("useEffect worked!!"), 3000);
+    setTimeout(() => setUseEffectValue("useEffect worked"), 3000);
   }, [value]);
 
   const incrementValue = () => {
@@ -26,15 +27,19 @@ const HookContainer1 = () => {
     setValue(value - 1);
   };
 
-  const handleEffectValue = () => {
+  const handleuseEffectValue = () => {
     setUseEffectValue("some string");
   };
 
   const handleDispatchTrue = () => {
+    //    dispatch2(type: "SUCCESS")
+    //    dispatch2(ACTIONS.SUCCESS)
     dispatch(ACTIONS.success());
   };
 
   const handleDispatchFalse = () => {
+    //     dispatch2(type: "FAILURE")
+    //    dispatch2(ACTIONS.FAILURE)
     dispatch(ACTIONS.failure());
   };
 
@@ -82,4 +87,4 @@ const HookContainer1 = () => {
   );
 };
 
-export default HookContainer1;
+export default HooksContainer1;
